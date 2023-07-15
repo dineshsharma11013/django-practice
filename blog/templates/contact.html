@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block desc %}
+{% load static %}
+<header class="masthead" style="background-image: url('{% static 'assets/img/contact-bg.jpg' %}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="page-heading">
+                    <h1>Contact Me</h1>
+                    <span class="subheading">Have questions? I have answers.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
+                <div class="my-5">
+                  
+                    <form id="contactForm">
+                        <div class="form-floating">
+                            <input class="form-control" id="name" name="name" autocomplete="off" type="text" placeholder="Enter your name..." />
+                            <label for="name">Name</label>
+                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                        </div>
+                       
+                        <br />
+                      
+                        <button class="btn btn-primary text-uppercase" id="submitButton" onclick="saveData('contactForm', 'submitButton', '/contact')" type="button">Send</button>
+                    </form>
+                </div>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>SNo.</th>
+                        <th>Name</th>
+                        <th>Created</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for en in enquiries %}
+                      <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{en.name}}</td>
+                        <td>{{en.created_at}}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="/contact/contact-edit/{{en.id}}">Edit</a>
+                            <button class="btn btn-danger btn-sm" onclick="deleteData('/contact/contact-edit/{{en.id}}')">Delete</button>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+        <{% block myscript %}
+        <script src="{% static 'js/contact.js' %}"></script>
+        {% endblock  %}
